@@ -15,5 +15,5 @@ jobs:
           git clone -b main --single-branch https://${{ secrets.my_token }}@github.com/bashk/docker_ci_cd.git
       - name: Build the docker
         run: |
-          sudo docker build -f /home/ansible/docker_ci_cd/Dockerfile .
+          sudo docker build -f /home/ansible/docker_ci_cd/Dockerfile -t first_page:latest .
           sudo docker run -p -d 80:80 first_page
