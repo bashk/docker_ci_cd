@@ -19,5 +19,6 @@ jobs:
     steps:
       - name: Build the docker
         run: |
+          ls -lah /home/ansible/docker_ci_cd
           sudo docker build -f /home/ansible/docker_ci_cd/Dockerfile -t first_page:latest .
           sudo docker run -p -d 80:80 first_page
