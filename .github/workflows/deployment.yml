@@ -16,4 +16,4 @@ jobs:
       - name: Build the docker
         run: |
           docker build -t first_page .
-          docker run -p -d 80:80 first_page 
+          docker run -p -d 80:80 first_page
