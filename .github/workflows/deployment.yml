@@ -24,5 +24,6 @@ jobs:
       - name: Build the docker
         if: always()
         run: |
+          pwd
           sudo docker build -f docker_ci_cd/Dockerfile -t first_page:latest .
           sudo docker run -d -p 80:80 first_page
