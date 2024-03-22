@@ -11,8 +11,12 @@ jobs:
       - name: Deploy the code
         run: |
           cd /home/ansible/
-          rm -rf *
+          rm -rf docker_ci_cd
           git clone -b main --single-branch https://${{ secrets.my_token }}@github.com/bashk/docker_ci_cd.git
+  Deploy-the-code:
+    needs: Check-out-the-code
+    runs-on: self-hosted
+    steps:
       - name: Build the docker
         run: |
           sudo docker build -f /home/ansible/docker_ci_cd/Dockerfile -t first_page:latest .
