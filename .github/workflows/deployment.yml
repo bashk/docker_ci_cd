@@ -3,8 +3,17 @@ on:
     branches:
       - main
 jobs:
-  Check-the-code:
+  Check-out-the-code:
     runs-on: self-hosted
     steps:
       - name: actions/checkout@v4.1.2
-        run: echo "Checking code finished succesfuly!"
+        run: echo "Checkout finished :)"
+      - name: Deploy the code
+        run: |
+          cd /var/www/html/site1
+          rm -rf *
+          git clone -b main --single-branch https://${{ secrets.my_token }}@github.com/bashk/ci_cd_test.git
+      - name: Build the docker
+        run: |
+          docker build -t first_page .
+          docker run -p -d 80:80 first_page
