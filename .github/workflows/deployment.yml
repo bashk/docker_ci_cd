@@ -12,7 +12,7 @@ jobs:
         run: |
           cd /home/ansible/
           rm -rf *
-          git clone -b main --single-branch https://${{ secrets.my_token }}@github.com/bashk/ci_cd_test.git
+          git clone -b main --single-branch https://${{ secrets.my_token }}@github.com/bashk/docker_ci_cd.git
       - name: Build the docker
         run: |
           docker build -t first_page .
