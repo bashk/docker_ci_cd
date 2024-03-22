@@ -17,8 +17,11 @@ jobs:
     needs: Check-out-the-code
     runs-on: self-hosted
     steps:
+      - name: Stop all and remove all containers if any
+        run: |
+          sudo docker stop $(sudo docker ps -a -q)
+          sudo docker rm $(sudo docker ps -a -q)
       - name: Build the docker
         run: |
-          ls -lah /home/ansible/docker_ci_cd
-          sudo docker build -f /home/ansible/docker_ci_cd/Dockerfile -t first_page:latest .
-          sudo docker run -p -d 80:80 first_page
+          sudo docker build -f docker_ci_cd/Dockerfile -t first_page:latest .
+          sudo docker run -d -p 80:80 first_page
