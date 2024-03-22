@@ -1,4 +1,4 @@
 FROM nginx
 WORKDIR /app
 
-COPY index.html /usr/share/nginx/html
+COPY /home/ansible/docker_ci_cd/index.html /usr/share/nginx/html
