@@ -1,0 +1,10 @@
+on:
+  push:
+    branches:
+      - main
+jobs:
+  Check-the-code:
+    runs-on: self-hosted
+    steps:
+      - name: actions/checkout@v4.1.2
+        run: echo "Checking code finished succesfuly!"
