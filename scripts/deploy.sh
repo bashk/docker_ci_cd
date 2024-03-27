@@ -1,4 +1,5 @@
 #!/bin/bash
+# this script should be located in the home folder ~
 
 random=$(echo $RANDOM | date | md5sum | head -c 32)
 random="first_page_$random"
@@ -6,7 +7,7 @@ random="first_page_$random"
 running_id=$(sudo docker ps -a --filter "status=running" -q)
 echo "Running ID: $running_id"
 
-cd /home/ansible
+cd /home/bashkim
 
 # if there are no containers
 if [ -z "${running_id}" ]
