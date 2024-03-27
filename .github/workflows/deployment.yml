@@ -10,7 +10,7 @@ jobs:
         run: echo "Checkout finished :)"
       - name: Deploy the code
         run: |
-          cd /home/ansible/
+          cd /home/bashkim/
           rm -rf docker_ci_cd
           git clone -b main --single-branch https://${{ secrets.my_token }}@github.com/bashk/docker_ci_cd.git
   Deploy-the-code:
@@ -24,5 +24,5 @@ jobs:
       - name: Build the docker
         if: always()
         run: |
-          cd /home/ansible/
+          cd /home/bashkim/
           sudo sh ./deploy.sh
