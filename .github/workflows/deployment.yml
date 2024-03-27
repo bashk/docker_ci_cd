@@ -1,7 +1,8 @@
 on:
   push:
     branches:
-      - main
+      #- main
+      workflow_dispatch
 jobs:
   Check-out-the-code:
     runs-on: self-hosted
