@@ -24,7 +24,7 @@ jobs:
       - name: get running docker port
         id: get_port
         run: |
-          echo "running_port=$(sudo docker port $running_id | grep -oE '[0-9]+' | head -n 1)" >> $GITHUB_ENV
+          echo "running_port=$(sudo docker port ${{ env.running_id }} | grep -oE '[0-9]+' | head -n 1)" >> $GITHUB_ENV
       - name: create a random string
         id: random_string
         run: |
