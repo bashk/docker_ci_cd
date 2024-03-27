@@ -16,3 +16,11 @@ location / {
         proxy_pass http://samplecluster;
 }
 ```
+Run command below to check if the configuration is ok:
+```
+sudo nginx -t
+```
+In the end reload Nginx
+```
+sudo nginx -s reload
+```
