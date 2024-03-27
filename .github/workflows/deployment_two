@@ -1,0 +1,56 @@
+on:
+  push:
+    branches:
+      - main
+jobs:
+  Check-out-the-code:
+    runs-on: self-hosted
+    steps:
+      - name: actions/checkout@v4.1.2
+        run: echo "Checkout finished :)"
+      - name: Deploy the code
+        run: |
+          cd /home/ansible/
+          rm -rf docker_ci_cd
+          git clone -b main --single-branch https://${{ secrets.my_token }}@github.com/bashk/docker_ci_cd.git
+  Deploy-the-code:
+    needs: Check-out-the-code
+    runs-on: self-hosted
+    steps:
+      - name: get running docker id
+        id: get_id
+        run: |
+          echo 'running_id=$(sudo docker ps -a --filter "status=running" -q)' >> $GITHUB_ENV
+      - name: get running docker port
+        id: get_port
+        run: |
+          echo "running_port=$(sudo docker port $running_id | grep -oE '[0-9]+' | head -n 1)" >> $GITHUB_ENV
+      - name: create a random string
+        id: random_string
+        run: |
+          echo "random=$(echo $RANDOM | md5sum | head -c 8)" >> $GITHUB_ENV
+      - name: Create new docker on port 80
+        if: ${{ env.running_port}} == 80
+        run: |
+          echo "Free port is 80"
+          cd /home/ansible/
+          # sudo docker build -f docker_ci_cd/Dockerfile -t first_page:latest .
+          # sudo docker run -d -p 80:80 first_page
+      - name: Create new docker on port 81
+        if: ${{ env.running_port }} == 81
+        run: |
+          echo "free port is 81"
+          cd /home/ansible/
+          # sudo docker build -f docker_ci_cd/Dockerfile -t first_page:latest .
+          # sudo docker run -d -p 80:80 first_page
+
+      # - name: Stop all and remove all containers if any
+      #   run: |
+      #     sudo docker stop $(sudo docker ps -a -q)
+      #     sudo docker rm $(sudo docker ps -a -q)
+      # - name: Build the docker
+      #   if: always()
+      #   run: |
+      #     cd /home/ansible/
+      #     sudo docker build -f docker_ci_cd/Dockerfile -t first_page:latest .
+      #     sudo docker run -d -p 80:80 first_page
