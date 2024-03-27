@@ -1,8 +1,7 @@
 on:
   push:
     branches:
-      #- main
-      workflow_dispatch
+      - main
 jobs:
   Check-out-the-code:
     runs-on: self-hosted
@@ -26,5 +25,4 @@ jobs:
         if: always()
         run: |
           cd /home/ansible/
-          sudo docker build -f docker_ci_cd/Dockerfile -t first_page:latest .
-          sudo docker run -d -p 80:80 first_page
+          sudo sh ./deploy.sh
